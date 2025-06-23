@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,6 +16,7 @@ import NotFound from "./pages/NotFound";
 import AdminSetupPage from "./pages/AdminSetupPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
+import { Analytics } from "@vercel/analytics/react"; // ✅ Correto para projetos React
 
 const queryClient = new QueryClient();
 
@@ -34,34 +34,35 @@ const App = () => (
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/checkout" element={<Checkout />} />
-              <Route 
-                path="/profile" 
+              <Route
+                path="/profile"
                 element={
                   <ProtectedRoute>
                     <Profile />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/admin-setup" 
+              <Route
+                path="/admin-setup"
                 element={
                   <ProtectedRoute>
                     <AdminSetupPage />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/admin" 
+              <Route
+                path="/admin"
                 element={
                   <AdminRoute>
                     <Admin />
                   </AdminRoute>
-                } 
+                }
               />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              {/* Catch-all */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
+          <Analytics /> {/* ✅ Aqui está o Vercel Analytics para React */}
         </CartProvider>
       </AuthProvider>
     </TooltipProvider>
